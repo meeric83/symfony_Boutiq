@@ -70,7 +70,6 @@ class Product
     private $category;
 
     
-
     /**
      * @ORM\OneToMany(targetEntity=RelatedProduct::class, mappedBy="product")
      */
