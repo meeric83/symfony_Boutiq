@@ -17,7 +17,7 @@ class CompteUtilController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('compte_util/index.html.twig', [
-        ]);
+        return $this->render('compte_util/index.html.twig');
+        
     }
 }

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Digital-Boutiq{% endblock title %}
+
+{% block body %}
+    {{ include("partials/title_section.html.twig", {'name':'shop'})}}
+
+    
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="tab-style1">
+                <ul class="nav nav-tabs justify-content-center" role="tablist">
+                    <li class="nav-item mr-2">
+                        <button class="btn btn-border-fill btn-block mr-4"> Categories</button>
+                    </li>
+                    <li class="nav-item mr-2">
+                        <button class="btn btn-border-fill btn-block mr-4"> Prix</button>
+                    </li>
+                    <li class="nav-item mr-2">
+                     <!--   <a class="nav-link" data-toggle="tab" href="#" role="tab"  aria-selected="true">Tags</a>-->
+                       
+                        <button class="btn btn-border-fill btn-block mr-4"> Tags</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-border-fill btn-block"> Search</button>
+                    </li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div  class="section p-5">
+        <div class="container mt-14 ">
+            <div class="row">
+                <div class="col-lg-14">
+                    <div class="row shop_container">
+                        {% for product in products %}
+
+                        {{ include('partials/product.html.twig',{'product':product})}}
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+             
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}

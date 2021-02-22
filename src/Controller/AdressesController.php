@@ -31,19 +31,19 @@ class AdressesController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $adress = new Adresses();
+        $adress= new Adresses();
         $form = $this->createForm(AdressesType::class, $adress);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $utilisateur = $this->getUtilisateur();
-            $adress->setAdresses($utilisateur);
+            $utilisateur = $this->getUser();
+            $adress->setUtilisateur($utilisateur);          
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($adress);
             $entityManager->flush();
-
-            return $this->redirectToRoute('adresses_index');
+            $this->addFlash('adress_message', 'your adress has been saved'); 
+            return $this->redirectToRoute('compte_util');
         }
 
         return $this->render('adresses/new.html.twig', [
@@ -52,15 +52,7 @@ class AdressesController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="adresses_show", methods={"GET"})
-     */
-    public function show(Adresses $adress): Response
-    {
-        return $this->render('adresses/show.html.twig', [
-            'adress' => $adress,
-        ]);
-    }
+    
 
     /**
      * @Route("/{id}/edit", name="adresses_edit", methods={"GET","POST"})
@@ -72,8 +64,8 @@ class AdressesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('adresses_index');
+            $this->addFlash('adress_message', 'your adress has been edited'); 
+            return $this->redirectToRoute('compte_util');
         }
 
         return $this->render('adresses/edit.html.twig', [
@@ -91,8 +83,10 @@ class AdressesController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($adress);
             $entityManager->flush();
+            $this->addFlash('adress_message', 'your adress has been deleted'); 
         }
+        
 
-        return $this->redirectToRoute('adresses_index');
+        return $this->redirectToRoute('compte_util');
     }
 }
